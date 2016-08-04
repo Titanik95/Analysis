@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Analysis.Models
 {
+    [Serializable]
     class Security: INotifyPropertyChanged
     {
         string security;
@@ -15,8 +16,11 @@ namespace Analysis.Models
         DateTime dateTo;
         DateTime timeTo;
         bool autoUpdate;
+        [NonSerialized]
         double volumeBuy;
+        [NonSerialized]
         double volumeSell;
+        [NonSerialized]
         double volumeBalance;
 
         public string SecurityName

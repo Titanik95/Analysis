@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,6 +56,8 @@ namespace Analysis
             var secName = (string)securityPicker.SelectedValue;
             if (secName == null)
                 return;
+            if (controller.ContainsSecurity(secName))
+                return;
 
             var sec = new Security();
             sec.SecurityName = secName;
@@ -62,7 +65,7 @@ namespace Analysis
             sec.DateTo = DateTime.Now;
             sec.AutoUpdate = false;
             trackingSecurities.Add(sec);
-
+            controller.AddTrackingSecurity(sec);
         }
 
         private void TextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
@@ -152,6 +155,16 @@ namespace Analysis
             var selectedItems = trackingSecuritiesList.SelectedItems;
             foreach (var item in selectedItems)
                 ((Security)item).TimeTo = (DateTime)timeToPicker.SelectedTime;
+        }
+
+        private void updateButton_Click(object sender, RoutedEventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem((w) => controller.UpdateSecurities());
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            controller.SaveSecurities();
         }
     }
 }

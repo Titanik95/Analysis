@@ -8,7 +8,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="Analysis" Height="720" Width="1280">
+        Title="Analysis" Height="720" Width="1280" Closing="Window_Closing">
     <Grid ShowGridLines="True">
         <Grid Margin="15,15,10,10">
             <Grid.RowDefinitions>
@@ -36,7 +36,7 @@
                         </Canvas>
                     </Button>
                 </StackPanel>
-                <Button x:Name="updateButton" Content="Обновить" Height="Auto" Margin="0,0,4,0" FontSize="16" HorizontalAlignment="Right" Grid.Column="1"/>
+                <Button x:Name="updateButton" Content="Обновить" Height="Auto" Margin="0,0,4,0" FontSize="16" HorizontalAlignment="Right" Grid.Column="1" Click="updateButton_Click"/>
             </Grid>
             <ListView x:Name="trackingSecuritiesList" Margin="10" Grid.Row="1" FontSize="16" HorizontalContentAlignment="Stretch" KeyDown="trackingSecuritiesList_KeyDown">
                 <ListView.View>
